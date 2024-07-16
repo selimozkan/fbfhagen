@@ -14,7 +14,7 @@ SECRET_KEY = "sc_7q&)ciszj-c2h!f9_!(r__6r@ge2#g2&0#*1^ej^68q6xg)"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*", "gender-toolkit.com", "www.gender-toolkit.com"]
 
 
 # Application definition
