@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" dir="lrt">
-  <script src="head.js"></script>
-  <body>
-    <script src="loading.js"></script>
-    <script src="header.js"></script>
+{% extends "base.html" %}
+{% load static %}
+
+    {% block content %}
     <main>
       <!-- Breadcrumb Area S t a r t -->
       <section class="breadcrumb-section breadcrumb-bg">
@@ -172,10 +170,4 @@
       <!-- End-of contact-->
 
     </main>
-    <script src="footer.js"></script>
-    <script src="scroll-up.js"></script>
-    <!-- Add an overlay element -->
-    <div class="overlay"></div>
-    <script src="scripts.js"></script>
-  </body>
-</html>
+    {% endblock content %}

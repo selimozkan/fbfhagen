@@ -104,6 +104,17 @@ def event(request):
     )
 
 
+def contact(request):
+    lang = request.session.get("language", "en")
+    return render(
+        request,
+        "contact.html",
+        {
+            "language": lang,
+        },
+    )
+
+
 def disclaimer(request):
     lang = request.session.get("language", "en")
     disclaimer = Disclaimer.objects.all().order_by("id")[:1].get()
