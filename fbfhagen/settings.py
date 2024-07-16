@@ -194,8 +194,9 @@ CKEDITOR_UPLOAD_PATH = ""
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = "mail.gendertoolkit.com"
+EMAIL_HOST = "mail.gender-toolkit.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = False
-EMAIL_HOST_USER = "web@gendertoolkit.com"
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = "info@gender-toolkit.com"
 EMAIL_HOST_PASSWORD = "Parola.GT2024"

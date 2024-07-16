@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.conf import settings
 import json
 
@@ -119,16 +119,14 @@ def contact(request):
             phone = form.cleaned_data["phone"]
             email = form.cleaned_data["email"]
             message = form.cleaned_data["message"]
-            print(name, phone, email, message)
-            send_mail(
+            email = EmailMessage(
                 "Contact form message from fbf-hagen.de by {}".format(name),
                 message,
                 settings.EMAIL_HOST_USER,
                 ["selimozkan@gmail.com"],
-                auth_user=settings.EMAIL_HOST_USER,
-                auth_password=settings.EMAIL_HOST_PASSWORD,
+                reply_to=[email],
             )
-
+            email.send(fail_silently=True)
     return render(
         request,
         "contact.html",
