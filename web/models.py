@@ -337,6 +337,19 @@ class Event(models.Model):
         return self.title_de or "No Title"
 
 
+class AfterSchool(models.Model):
+    content_de = RichTextUploadingField("Content De", null=True, blank=True)
+    content_en = RichTextUploadingField("Content En", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "AfterSchool"
+        verbose_name_plural = "AfterSchool"
+        managed = True
+
+    def __str__(self):
+        return self.content_de or "No Text"
+
+
 class Social(models.Model):
     facebook = models.URLField("Facebook Link", max_length=250, null=True, blank=True)
     instagram = models.URLField("Instagram Link", max_length=250, null=True, blank=True)

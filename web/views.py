@@ -13,6 +13,7 @@ from .models import (
     About,
     Project,
     Event,
+    AfterSchool,
     Partner,
     FooterContact,
     Disclaimer,
@@ -104,6 +105,20 @@ def event(request):
         {
             "language": lang,
             "event": event,
+        },
+    )
+
+
+def afterschool(request):
+    lang = request.session.get("language", "en")
+    afterschool = AfterSchool.objects.all().order_by("id")[:1].get()
+
+    return render(
+        request,
+        "afterschool.html",
+        {
+            "language": lang,
+            "afterschool": afterschool,
         },
     )
 

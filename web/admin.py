@@ -8,6 +8,7 @@ from .models import (
     About,
     Project,
     Event,
+    AfterSchool,
     Partner,
     FooterContact,
     Social,
@@ -154,6 +155,24 @@ class EventAdmin(admin.ModelAdmin):
         "event_picture",
     ]
     ordering = ("-id",)
+
+
+@admin.register(AfterSchool)
+class AfterSchoolAdmin(admin.ModelAdmin):
+    fields = [
+        "content_de",
+        "content_en",
+    ]
+    list_display = [
+        "id",
+        "content_de",
+    ]
+
+    def has_add_permission(self, request):
+        count = AfterSchool.objects.all().count()
+        if count == 0:
+            return True
+        return False
 
 
 @admin.register(Partner)

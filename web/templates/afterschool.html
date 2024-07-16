@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block content %}
+    <main>
+      <!-- Breadcrumb Area S t a r t -->
+      <section class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+          <div class="breadcrumb-text">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav wow fadeInUp mt-15" data-wow-delay="0.0s">
+              <ul class="breadcrumb listing">
+                <li class="breadcrumb-item single-list"><a href="{% url 'index' %}" class="single">{% if language == 'en' %}Home{% else %}Hauptseite{% endif %}</a></li>
+                <li class="breadcrumb-item single-list" aria-current="page"><a href="javascript:void(0)" class="single">{% if language == 'en' %}AFTERSCHOOL{% else %}NACHHILFESCHULE{% endif %}</a></li>
+              </ul>
+            </nav>
+            <h1 class="title wow fadeInUp" data-wow-delay="0.1s">{% if language == 'en' %}AFTERSCHOOL{% else %}NACHHILFESCHULE{% endif %}</h1>
+          </div>
+        </div>
+      </section>
+      <!-- End-of Breadcrumb Area -->
+
+      <!-- S t a r t -->
+      <section class="about-area">
+        <div class="container mt-30">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- Section Tittle -->
+              <div class="section-tittle mb-35">
+                <span class="sub-tittle text-capitalize font-600">{% if language == 'en' %}AFTERSCHOOL{% else %}NACHHILFESCHULE{% endif %}</span>
+                <h2 class="title font-700 pb-15">{% if language == 'en' %}AFterschool for every needs{% else %}Nachhilfe f&#252;r jeden Bedarf{% endif %}</h2>
+                <div class="">
+                  {% if language == 'en' %}{{afterschool.content_en|safe}}{% else %}{{afterschool.content_en|safe}}{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End -->
+    </main>
+    {% endblock content %}
