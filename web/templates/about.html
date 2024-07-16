@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" dir="lrt">
-  <script src="head.js"></script>
-  <body>
-    <script src="loading.js"></script>
-    <script src="header.js"></script>
+{% extends "base.html" %}
+{% load static %}
+
+    {% block content %}
     <main>
       <!-- Breadcrumb Area S t a r t -->
       <section class="breadcrumb-section breadcrumb-bg">
@@ -11,11 +9,11 @@
           <div class="breadcrumb-text">
             <nav aria-label="breadcrumb" class="breadcrumb-nav wow fadeInUp mt-15" data-wow-delay="0.0s">
               <ul class="breadcrumb listing">
-                <li class="breadcrumb-item single-list"><a href="index.html" class="single">HauptSeite</a></li>
-                <li class="breadcrumb-item single-list" aria-current="page"><a href="javascript:void(0)" class="single">&#220;BER UNS</a></li>
+                <li class="breadcrumb-item single-list"><a href="{% url 'index' %}" class="single">{% if language == 'en' %}Home{% else %}Hauptseite{% endif %}</a></li>
+                <li class="breadcrumb-item single-list" aria-current="page"><a href="javascript:void(0)" class="single">{% if language == 'en' %}ABOUT US{% else %}&#220;BER UNS{% endif %}</a></li>
               </ul>
             </nav>
-            <h1 class="title wow fadeInUp" data-wow-delay="0.1s">&#220;BER UNS</h1>
+            <h1 class="title wow fadeInUp" data-wow-delay="0.1s">{% if language == 'en' %}ABOUT US{% else %}{% endif %}&#220;BER UNS</h1>
           </div>
         </div>
       </section>
@@ -25,69 +23,41 @@
       <section class="helpful-area-three section-padding">
         <div class="container">
           <div class="row g-24">
+            {% for service in services %}
             <div class="col-xl-3 col-md-6 col-lg-6">
               <div class="helpful-card wow fadeInUp" data-wow-delay="0.0s">
                 <div class="helpful-card-icon">
-                  <img src="assets/images/about/1.png" alt="FBF-Hagen" />
+                  
+                  {% if service.image %}
+                  <img src="{{ service.image.url }}" alt="FBF-Hagen" />
+                  {% else %}
+                  &nbsp;
+                  {% endif %}
+                    
                 </div>
                 <div class="helpful-card-caption">
-                  <h4 class="caption-title">Reisen und Erleben</h4>
-                  <p class="caption-para">Die Verbindung von Reisen und pers&#246;nlicher Entwicklung durch das Erleben neuer Orte, Kulturen und Abenteuer.<br>&nbsp;</p>
-                  <a href="javascript:void(0)" class="imp-link">Mehr details <i class="ri-arrow-right-up-line"></i></a>
+                  <h4 class="caption-title">
+                  {% if language == 'en' %}
+                  {{ service.title_en}}
+                  {% else %}  
+                  {{ service.title_de}}
+                  {% endif %}
+                </h4>
+                  <p class="caption-para">
+                    {% if language == 'en' %}
+                    {{ service.description_en|safe}}
+                    {% else %}  
+                    {{ service.description_de|safe}}
+                    {% endif %}
+                  </p>
+                  {% comment %} <a href="javascript:void(0)" class="imp-link">Mehr details <i class="ri-arrow-right-up-line"></i></a> {% endcomment %}
                 </div>
                 <div class="number-watermark">
-                  <h4 class="number">01</h4>
+                  <h4 class="number">{{ forloop.counter|stringformat:"02d" }}</h4>
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-md-6 col-lg-6">
-              <div class="helpful-card wow fadeInUp" data-wow-delay="0.10s">
-                <div class="helpful-card-icon">
-                  <img src="assets/images/about/2.png" alt="FBF-Hagen" />
-                </div>
-                <div class="helpful-card-caption">
-                  <h4 class="caption-title">Trainingskurs</h4>
-                  <p class="caption-para">Bezieht sich auf einen strukturierten Bildungskurs oder Workshop, der darauf abzielt, spezifische F&#228;higkeiten, Kenntnisse oder Qualifikationen zu vermitteln.</p>
-                  <a href="javascript:void(0)" class="imp-link">Mehr details <i class="ri-arrow-right-up-line"></i></a>
-                </div>
-                <div class="number-watermark">
-                  <h4 class="number">02</h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-lg-6">
-              <div class="helpful-card wow fadeInUp" data-wow-delay="0.20s">
-                <div class="helpful-card-icon">
-                  <img src="assets/images/about/3.png" alt="FBF-Hagen" />
-                </div>
-                <div class="helpful-card-caption">
-                  <h4 class="caption-title">Youthpass</h4>
-                  <p class="caption-para">Ist ein von der Europ&#228;ischen Union ausgestelltes Zertifikat f&#252;r Teilnehmer von Jugendprojekten. Es dokumentiert deren F&#228;higkeiten, Erfahrungen und Lernerfolge.</p>
-                  <a href="javascript:void(0)" class="imp-link">Mehr details <i class="ri-arrow-right-up-line"></i></a>
-                </div>
-                <div class="number-watermark">
-                  <h4 class="number">03</h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-lg-6">
-              <div class="helpful-card wow fadeInUp" data-wow-delay="0.03s">
-                <div class="helpful-card-icon">
-                  <img src="assets/images/about/4.png" alt="FBF-Hagen" />
-                </div>
-                <div class="helpful-card-caption">
-                  <h4 class="caption-title">Interesse geweckt?</h4>
-                  <p class="caption-para">Kontaktiere uns jetzt, um weitere Informationen zu erhalten.<br>
-                    Kontaktperson:<br>
-                    Yunus Emre Cakmak<br>
-                    falkenhagenerasmus@gmail.com.</p>
-                  <a href="javascript:void(0)" class="imp-link">Mehr details <i class="ri-arrow-right-up-line"></i></a>
-                </div>
-                <div class="number-watermark">
-                  <h4 class="number">04</h4>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
       </section>
@@ -100,27 +70,42 @@
             <div class="col-lg-6 my-auto">
               <!-- Section Tittle -->
               <div class="section-tittle mb-35">
-                <span class="sub-tittle text-capitalize font-600">&#220;ber Uns</span>
-                <h2 class="title font-700 pb-15">Falken Bildungs- und Freizeitwerk Hagen e.V.</h2>
-                <p class="pera-subtitle mb-15">Das Falken Bildungs- und Freizeitwerk Hagen e.V. ist Tr&#228;ger von insgesamt drei Einrichtungen der offenen Kinder- und Jugendarbeit in Hagen. Es betreibt das Jugendzentrum Vorhalle, das Friedenshaus in Altenhagen und das Spielhaus in Brockhausen</p>
-                <p class="pera-subtitle mb-15">Was wir anbieten</p>
-                <p class="pera-subtitle mb-15">Ziel des Falken Bildungs- und Freizeitwerks Hagen e.V. ist es, Kinder und Jugendliche zu selbstbewussten Pers&#246;nlichkeiten heranwachsen zu lassen, die in der Lage sind, ihr Leben eigenverantwortlich zu gestalten, ihre Interessen zu erkennen und gemeinsam mit anderen zu versuchen, diese durchzusetzen. Aus diesem Grund bestehen in den Gruppen Modelle der Mitbestimmung, in denen die Gruppen ihr Programm und den Gruppenetat diskutieren und selbst bestimmen. Wir m&#246;chten junge Menschen bef&#228;higen, aktive Gesellschaftsmitglieder zu werden, die ihre Umwelt verstehen, hinterfragen und auch kritisieren k&#246;nnen. Wir setzen uns daf&#252;r ein, dass die Meinung von Kindern und Jugendlichen ernst genommen wird und sehen uns als einen ihrer Vertreter. Hervorzuheben an unserer lokalen Arbeit ist, dass deutlich &#252;ber die H&#228;lfte der Jugendlichen, die die Angebote der Einrichtungen wahrnehmen und mitgestalten, einen Migrationshintergrund haben oder Gefl&#252;chtete sind. Gerade in Zeiten, in denen sich Fremdenfeindlichkeit, politische und milit&#228;rische Konflikte, sowie die Angst vor dem Fremden wieder verst&#228;rkt zeigen, setzen wir ein Zeichen f&#252;r die V&#246;lkerverst&#228;ndigung und reisen mit Jugendlichen aus Deutschland in verschiedene L&#228;nder und begr&#252;ßen auch bei uns in Hagen immer wieder Jugendliche aus verschiedenen L&#228;ndern.</p>
-                <p class="pera-subtitle">In den Jugendzentren werden f&#252;r die Gruppen, teilweise auch als offenes Angebot, verschiedene Projekte angeboten. Die Jugendgruppen beteiligen sich zudem an regionalen Aktivit&#228;ten, wie dem Gewerkschaftstag am 1. Mai oder am Weltkindertag. Zusammen mit den Jugendlichen und Kindern werden Freizeiten, Seminare und Gruppenstunden organisiert.</p>
+                <span class="sub-tittle text-capitalize font-600">
+                {% if language == 'en' %}
+                  {{ about.title_en }}
+                {% else %}
+                  {{ about.title_de }}
+                {% endif %}
+                </span>
+                <h2 class="title font-700 pb-15">
+                {% if language == 'en' %}
+                  {{ about.subtitle_en }}
+                {% else %}  
+                  {{ about.subtitle_de }}
+                {% endif %}
+              </h2>
+              {% if language == 'en' %}
+                {{ about.content_en|safe }}
+              {% else %}  
+                {{ about.content_de|safe }}
+              {% endif %}
               </div>
             </div>
             <div class="col-lg-5">
               <div class="position-relative h-100">
+                {% if about.video %}
                 <div class="play-button">
-                  <a id="play-video-two" class="video-play-button-two d-none d-lg-block d-none d-lg-block" href="javascript:void(0)">
+                  <a id="play-video" class="video-play-button" href="javascript:void(0)">
                     <span></span>
                   </a>
-
                   <div id="video-overlay" class="video-overlay">
                     <a class="video-overlay-close">&times;</a>
+                    <iframe width="560" height="315" src="{{ about.video }}" frameborder="0" allowfullscreen></iframe>
                   </div>
                 </div>
+                {% endif %}
                 <div >
-                  <img class="w-100 d-none d-lg-block" src="assets/images/about/about-1.jpg" alt="FBF-Hagen">
+                  <img class="w-100 d-none d-lg-block" src="{{ about.image.url }}" alt="FBF-Hagen">
                 </div>
               </div>
             </div>
@@ -129,45 +114,33 @@
       </section>
       <!-- End-of About us Area -->
 
-      <!-- Popular brand S t a r t -->
+      <!-- Partners S t a r t -->
       <div class="popular-brand-section bottom-padding">
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
               <div class="brand-img-container">
                 <div class="flex justify-content-between brand-img-slider align-items-center">
+                  
+                  {% for partner in partners %}
                   <div class="brand-img">
-                    <img src="assets/images/partners/eu.png"  alt="European Commision">
+                    
+                    {% if  partner.website %}
+                    <a href="{{ partner.website }}" target="_blank">
+                    {% endif %}
+                    <img src="{{ partner.image.url }}"  alt="{{ partner.title }}">
+                    {% if partner.website %}
+                    </a>
+                    {% endif %}
                   </div>
-                  <div class="brand-img">
-                    <img src="assets/images/partners/jugend.png"  alt="Jugend g&#252;r Europa">
-                  </div>
-                  <div class="brand-img">
-                    <img src="assets/images/partners/iseda.png"  alt="Iseda">
-                  </div>
-                  <div class="brand-img">
-                    <img src="assets/images/partners/casa_de_cultura.png"  alt="Casa de Cultura">
-                  </div>
-                  <div class="brand-img">
-                    <img src="assets/images/partners/karya.png"  alt="Karya Kadin Dernegi">
-                  </div>
-    
-                  <div class="brand-img">
-                    <img src="assets/images/partners/sieviesu.png"  alt="Sieviesu Sadarbibas Tikis">
-                  </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- End-of Popular brand -->
+      <!-- End-of Partners -->
 
     </main>
-    <script src="footer.js"></script>
-    <script src="scroll-up.js"></script>
-    <!-- Add an overlay element -->
-    <div class="overlay"></div>
-    <script src="scripts.js"></script>
-  </body>
-</html>
+    {% endblock content %}

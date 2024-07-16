@@ -88,6 +88,53 @@ class Branch(models.Model):
         return self.title_de
 
 
+class Service(models.Model):
+    image = models.ImageField(
+        "Image",
+        upload_to="service/",
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=["gif", "png", "jpg"])],
+    )
+    title_de = models.CharField("Title De", null=True, blank=True, max_length=100)
+    description_de = models.CharField(
+        "Description De", null=True, blank=True, max_length=250
+    )
+    title_en = models.CharField("Title En", null=True, blank=True, max_length=100)
+    description_en = models.CharField(
+        "Description En", null=True, blank=True, max_length=250
+    )
+
+    def service_thumbnail(self):
+        if self.image:
+            return mark_safe(
+                '<img src="%s" style="width:50px;" alt="" />' % self.image.url
+            )
+        else:
+            return "No Image"
+        service_thumbnail.short_description = "Service Thumbnail"
+        service_thumbnail.allow_tags = True
+
+    def service_picture(self):
+        if self.image:
+            return mark_safe(
+                '<img src="%s" style="width:250px;" alt="" />' % self.image.url
+            )
+        else:
+            return "No Image"
+        service_picture.short_description = "Service Image"
+        service_picture.allow_tags = True
+
+    class Meta:
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
+        managed = True
+        ordering = ("id",)
+
+    def __str__(self):
+        return self.title_de
+
+
 class About(models.Model):
     image = models.ImageField(
         null=True,

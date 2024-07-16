@@ -20547,7 +20547,7 @@ input[type=number] {
   z-index: 2;
 }
 .blog-section .single-blog:hover .blog-img::before {
-  content: "30 Jun 2023";
+  /* content: "30 Jun 2023"; */
   color: white;
   font-size: 14px;
   font-weight: 700;
@@ -20587,7 +20587,7 @@ input[type=number] {
   z-index: 2;
 }
 .blog-section .single-blog .blog-img::before {
-  content: "30 Jun 2023";
+  /* content: "30 Jun 2023"; */
   color: var(--primary-title);
   font-size: 14px;
   font-weight: 700;
@@ -22156,7 +22156,7 @@ input[type=number] {
   }
 }
 .our-event-three .slick-slide .brush-bg::before {
-  content: "30 Jun 2023";
+  /* content: "30 Jun 2023"; */
   color: var(--primary-title);
   font-size: 14px;
   font-weight: 700;
@@ -22337,7 +22337,7 @@ input[type=number] {
   z-index: 1;
 }
 .blog-section-three .single-blog:hover .blog-img .brush-bg::before {
-  content: "30 Jun 2023";
+  /* content: "30 Jun 2023"; */
   color: var(--primary);
 }
 .blog-section-three .single-blog .blog-img {
@@ -22349,7 +22349,7 @@ input[type=number] {
   left: 20px;
 }
 .blog-section-three .single-blog .blog-img .brush-bg::before {
-  content: "30 Jun 2023";
+  /* content: "30 Jun 2023"; */
   color: var(--primary-title);
   font-size: 14px;
   font-weight: 700;
@@ -23040,7 +23040,7 @@ input[type=number] {
   left: 20px;
 }
 .single-blog .blog-img .brush-bg::before {
-  content: "30 jun 2023";
+  /* content: "30 Jun 2023"; */
   color: var(--white);
   font-size: 14px;
   font-weight: 700;

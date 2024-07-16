@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block content %}
+    <main>
+      <!-- Breadcrumb Area S t a r t -->
+      <section class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+          <div class="breadcrumb-text">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav wow fadeInUp" data-wow-delay="0.0s">
+              <ul class="breadcrumb listing">
+                <li class="breadcrumb-item single-list"><a href="{% url 'index' %}" class="single">{% if language == 'en' %}Home{% else %}Hauptseite{% endif %}</a></li>
+                <li class="breadcrumb-item single-list" aria-current="page"><a href="javascript:void(0)" class="single">{% if language == 'en' %}OUR PROJECTS{% else %}UNSERE PROJEKTE{% endif %}</a></li>
+              </ul>
+            </nav>
+            <h1 class="title wow fadeInUp" data-wow-delay="0.1s">{% if language == 'en' %}OUR PROJECTS{% else %}UNSERE PROJEKTE{% endif %}</h1>
+          </div>
+        </div>
+      </section>
+      <!-- End-of Breadcrumb Area -->
+
+      <!-- Blog S t a r t -->
+      <section class="blog-section-three top-bottom-padding">
+        <div class="container">
+          <div class="row gy-24">
+            {% for project in projects %}
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 view-wrapper">
+              <div class="single-blog h-calc">
+                <div class="blog-img">
+                  <a href="{% url 'project' project.slug %}">
+                    <img src="{{ project.image.url }}" class="img-fluid w-100" alt="FBF-Hagen">
+                  </a>
+                  <div class="brush-bg" >
+                    <span data-background="{% static 'images/brush.png' %}" style="color:var(--primary-title);font-size:14px;font-weight: 700;width:129px !important;height:61px !important;display:block;display:flex;justify-content:center;align-items:center;">{{ project.updated | date:"d/m/Y" }}</span>
+                  </div>
+                </div>
+                <div class="blog-info">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="blog-info-title">
+                      <div class="flex mb-15 gap-16 align-items-center">
+                        <div class="user flex gap-10 align-items-center">
+                          <i class="ri-user-line"></i>
+                          <p class="info">By: {{ project.author }}</p>
+                        </div>
+                      </div>
+                      <h4 class="title text-capitalize"><a href="{% url 'project' project.slug %}">{% if language == 'en' %}{{ project.title_en }}{% else %}{{ project.title_de }}{% endif %}</a></h4>
+                      <p class="subtitle">{% if language == 'en' %}{{ project.description_en }}{% else %}{{ project.description_de }}{% endif %}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="button-section"><a href="{% url 'project' project.slug %}" class="read-btn">{% if language == "en" %}Read More{% else %}Mehr Lesen{% endif %}</a></div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+          <!-- pagination -->
+          {% comment %}
+          <nav class="pagination-nav">
+            <ul class="pagination">
+              <li class="page-item" aria-current="page"><span class="page-link active">1</span></li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+              <li class="page-item">
+                <a class="page-link next" href="javascript:void(0)" rel="next" aria-label="Next »"><i class="ri-arrow-right-line"></i></a>
+              </li>
+            </ul>
+          </nav>
+          {% endcomment %}
+          <!-- End pagination -->
+        </div>
+      </section>
+      <!-- End-of Blog -->
+    </main>
+    {% endblock content %}

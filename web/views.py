@@ -2,7 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 import json
 
-from .models import Home, Branch, About, Project, Partner, FooterContact, Disclaimer
+from .models import (
+    Home,
+    Branch,
+    Service,
+    About,
+    Project,
+    Event,
+    Partner,
+    FooterContact,
+    Disclaimer,
+)
 
 
 def index(request):
@@ -27,6 +37,23 @@ def index(request):
     )
 
 
+def about(request):
+    lang = request.session.get("language", "en")
+    about = About.objects.all().order_by("id")[:1].get()
+    services = Service.objects.all().order_by("id")
+    partners = Partner.objects.all().order_by("id")
+    return render(
+        request,
+        "about.html",
+        {
+            "language": lang,
+            "about": about,
+            "services": services,
+            "partners": partners,
+        },
+    )
+
+
 def branch(request, slug):
     lang = request.session.get("language", "en")
     branch = Branch.objects.filter(slug=slug).get()
@@ -40,28 +67,39 @@ def branch(request, slug):
     )
 
 
-def about(request):
+def project(request, slug="all"):
     lang = request.session.get("language", "en")
-    about = About.objects.all().order_by("id")[:1].get()
-    return render(
-        request,
-        "about.html",
-        {
-            "language": lang,
-            "about": about,
-        },
-    )
+    if slug == "all":
+        projects = Project.objects.all()
+        return render(
+            request,
+            "projects.html",
+            {
+                "language": lang,
+                "projects": projects,
+            },
+        )
+    else:
+        project = Project.objects.get(slug=slug)
+        return render(
+            request,
+            "project_detail.html",
+            {
+                "language": lang,
+                "project": project,
+            },
+        )
 
 
-def project(request, slug):
+def event(request):
     lang = request.session.get("language", "en")
-    project = Project.objects.get(slug=slug)
+    event = Event.objects.all().order_by("-id")
     return render(
         request,
-        "project.html",
+        "event.html",
         {
             "language": lang,
-            "project": project,
+            "event": event,
         },
     )
 
@@ -102,4 +140,7 @@ def is_ajax(request):
 
 def change_language(request, lng="en"):
     request.session["language"] = "%s" % lng
-    return HttpResponseRedirect("/")
+    if request.META.get("HTTP_REFERER"):
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        return HttpResponseRedirect("/")

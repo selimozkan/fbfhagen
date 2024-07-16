@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 from .models import (
     Home,
     Branch,
+    Service,
     About,
     Project,
     Event,
@@ -51,6 +52,30 @@ class BranchAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         count = Branch.objects.all().count()
+        if count < 4:
+            return True
+        return False
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    fields = [
+        "service_picture",
+        "image",
+        "title_de",
+        "description_de",
+        "title_en",
+        "description_en",
+    ]
+    list_display = [
+        "service_thumbnail",
+        "title_de",
+        "description_de",
+    ]
+    readonly_fields = ["service_picture"]
+
+    def has_add_permission(self, request):
+        count = Service.objects.all().count()
         if count < 4:
             return True
         return False

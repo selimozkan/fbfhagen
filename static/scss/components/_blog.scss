@@ -27,7 +27,7 @@
           z-index: 2;
         }
         &::before {
-          content: "30 Jun 2023";
+          // content: "30 Jun 2023";
           color: white;
           font-size: 14px;
           font-weight: 700;
@@ -68,7 +68,7 @@
         z-index: 2;
       }
       &::before {
-        content: "30 Jun 2023";
+        // content: "30 Jun 2023";
         color: var(--primary-title);
         font-size: 14px;
         font-weight: 700;
