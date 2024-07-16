@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block content %}
+    <main>
+      <!-- Hero area S t a r t-->
+      <section class="hero-area-two" data-background="{{ home.banner_image.url }}">
+        <div class="single-slider hero-padding-two">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-xxl-6 col-xl-6 col-lg-6 my-auto">
+                <div class="hero-caption mb-20">
+                  <p class="key-title font-700 mb-20 wow fadeInUp" data-wow-delay="0.0s">
+                    {% if language == 'en' %}{{ home.title_en }}{% else %}{{ home.title_de }}{% endif %}
+                  </p>
+                  <h1 class="title font-700 wow fadeInUp" data-wow-delay="0.1s">{% if language == 'en' %}{{ home.subtitle_en }}{% else %}{{ home.subtitle_de }}{% endif %}</h1>
+                </div>
+              </div>
+              <!-- <div class="col-xxl-6 col-xl-6 col-lg-6">
+                <div class="d-flex gap-22 align-items-center justify-content-end">
+                  <div class="hero-image position-relative d-none d-lg-block">
+                    <img src="assets/images/hero/hero-1.jpg" alt="img" class="w-100 tilt-effect wow fadeInLeft" data-wow-delay="0.1s"> 
+                  </div>
+                  <div class="hero-image position-relative d-none d-lg-block">
+                    <img src="assets/images/hero/hero-2.jpg" alt="img" class="w-100 tilt-effect wow fadeInRight" data-wow-delay="0.1s"> 
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End-of Hero-->
+
+      <!-- helpful area S t a r t-->
+      <section class="helpful-area-two section-padding">
+        <div class="container">
+          <div class="row gy-24">
+            
+            {% for branch in branches %}
+            <div class="col-xl-4 col-md-6 col-lg-6">
+              <div class="helpful-card-two wow fadeInUp" data-wow-delay="0.0s">
+                <div class="helpful-card-icon">
+                  <i class="ri-global-line"></i>
+                </div>
+                <div class="helpful-card-caption">
+                  <h4 class="caption-title">
+                  {% if language == 'en' %}
+                    {{ branch.title_en }}
+                  {% else %}
+                    {{ branch.title_de }}  
+                  {% endif %}
+                  <p class="caption-para">
+                    {% if language == 'en' %}
+                      {{ branch.description_en }}
+                    {% else %}
+                      {{branch.description_de }}
+                    {% endif %}
+                  </p>
+                  <a class="caption-link" href="{% url 'branch' branch.slug %}">
+                  {% if language == 'en' %}
+                    Go to Website
+                  {% else %}
+                    Zur Webseite
+                  {% endif %}
+                     <i class="ri-arrow-right-s-line"></i></a>
+                </div>
+                <div class="number-watermark">
+                  <h4 class="number">{{ forloop.counter|stringformat:"02d" }}</h4>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      <!-- End-of helpful-->
+
+      <!-- About us Area S t a r t -->
+      <section class="about-area">
+        <div class="container">
+          <div class="row g-24 justify-content-between">
+            <div class="col-xl-6 col-lg-6">
+              <div class="section-tittle mb-50">
+                <span class="sub-tittle text-capitalize font-700">
+                  {% if language == 'en' %}
+                    {{ about.title_en }}
+                  {% else %}
+                    {{ about.title_de }}
+                  {% endif %}
+                </span>
+                <h2 class="title mb-20 font-700">
+                  {% if language == 'en' %}
+                    {{ about.subtitle_en }}
+                  {% else %}  
+                    {{ about.subtitle_de }}
+                  {% endif %}
+                </h2>
+                <p class="pera">
+                  {% if language == 'en' %}
+                    {{ about.description_en }}
+                  {% else %}
+                    {{ about.description_de }}
+                  {% endif %}
+                </p>
+              </div>
+              <div class="about-info">
+                <div class="row">
+                  <div class="col-lg-10 mt-10">
+                    <a href="{% url 'about' %}" class="btn btn-primary-fill">
+                      {% if language == 'en' %}
+                        More
+                      {% else %}
+                        Mehr lesen
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-6">
+              <div class="position-relative">
+                {% if about.video %}
+                <div class="play-button">
+                  <a id="play-video" class="video-play-button" href="javascript:void(0)">
+                    <span></span>
+                  </a>
+                  <div id="video-overlay" class="video-overlay">
+                    <a class="video-overlay-close">&times;</a>
+                    <iframe width="560" height="315" src="{{ about.video }}" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                </div>
+                {% endif %}
+                <img class="w-100 " src="{{ about.image.url }} " alt="FBF-Hagen">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End-of About us Area -->
+
+      <!-- Blog S t a r t -->
+      <section class="blog-section-two section-padding2">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-7">
+              <!-- Section Tittle -->
+              <div class="section-tittle text-center mb-50">
+                <span class="sub-tittle text-capitalize font-600">{% if language == 'en' %}Projects{% else %}Projekte{% endif %}</span>
+                <h2 class="title font-700">{% if language == 'en' %}Latest Projects{% else %}Neueste Projekte{% endif %}</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row gy-24">
+            {% for project in projects %}
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 view-wrapper">
+              <div class="single-blog h-calc wow fadeInLeft" data-wow-delay="0.1s">
+                <div class="blog-img position-relative">
+                  <a href="{% url 'project' project.slug %}" > <img src="{{ project.image.url }}" class="img-fluid w-100" alt="{% if language == 'en' %}{{ project.title_en }}{% else %}{{ project.title_de }}{% endif %}" /></a>
+                  <div class="blog-img-overlay-text">
+                    <div class="flex gap-16 mb-20 align-items-center">
+                      <div class="user flex gap-10 align-items-center">
+                        <i class="ri-user-line"></i>
+                        <p class="info">By: {{ project.author }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="blog-badge">
+                    <p class="subtitle">{{ project.updated|date:"d/m/Y" }}</p>
+                  </div>
+                </div>
+                <div class="blog-info">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="blog-info-title">
+                      <h4 class="title text-capitalize">
+                        <a href="{% url 'project' project.slug %}">
+                        {% if language == 'en' %}
+                          {{ project.title_en }}
+                        {% else %}
+                          {{ project.title_de }}
+                        {% endif %}
+                        </a>
+                      </h4>
+                      <p class="subtitle">
+                        {% if language == 'en' %}
+                          {{ project.description_en }}
+                        {% else %}
+                          {{ project.description_de }}
+                        {% endif %}
+                      </p>
+                      <a href="{% url 'project' project.slug %}" class="imp-link">{% if language == 'en' %}More{% else %}Mehr Lesen{% endif %}<i class="ri-arrow-right-line"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      <!-- End-of Blog -->
+
+      <!-- Partners S t a r t -->
+      <div class="popular-brand-section bottom-padding">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="brand-img-container">
+                <div class="flex justify-content-between brand-img-slider align-items-center">
+                  
+                  {% for partner in partners %}
+                  <div class="brand-img">
+                    
+                    {% if  partner.website %}
+                    <a href="{{ partner.website }}" target="_blank">
+                    {% endif %}
+                    <img src="{{ partner.image.url }}"  alt="{{ partner.title }}">
+                    {% if partner.website %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End-of Partners -->
+    </main>
+    {% endblock content %}
