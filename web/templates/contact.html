@@ -9,11 +9,11 @@
           <div class="breadcrumb-text">
             <nav aria-label="breadcrumb" class="breadcrumb-nav wow fadeInUp mt-15" data-wow-delay="0.0s">
               <ul class="breadcrumb listing">
-                <li class="breadcrumb-item single-list"><a href="index.html" class="single">Hauptseite</a></li>
-                <li class="breadcrumb-item single-list" aria-current="page"><a href="javascript:void(0)" class="single">Kontakt</a></li>
+                <li class="breadcrumb-item single-list"><a href="{% url 'index' %}" class="single">{% if language == 'en' %}Home{% else %}Hauptseite{% endif %}</a></li>
+                <li class="breadcrumb-item single-list" aria-current="page"><a href="javascript:void(0)" class="single">{% if language == 'en' %}CONTACT{% else %}KONTAKT{% endif %}</a></li>
               </ul>
             </nav>
-            <h1 class="title wow fadeInUp" data-wow-delay="0.1s">KONTAKT</h1>
+            <h1 class="title wow fadeInUp" data-wow-delay="0.1s">{% if language == 'en' %}CONTACT{% else %}KONTAKT{% endif %}</h1>
           </div>
         </div>
       </section>
@@ -26,101 +26,38 @@
             <div class="col-xl-12">
               <div class="contact-section">
                 <div class="contact-list">
+                  
+                  {% for contact in contacts %}
                   <div class="contact-icon-list">
                     <div class="contact-content">
-                      <p class="subtitle">Geschäftsstelle</p>
+                      <p class="subtitle">{{contact.title|safe}}</p>
                       <div class="flex gap-1 mb-15">
                         <div>
                           <i class="subtitle ri-map-pin-line"></i>
                         </div>
-                        <div class="title">Hochstraße 128<br>58085 Hagen</div>
+                        <div class="title">{{contact.address|safe}}</div>
                       </div>
                       <div class="flex gap-1 mb-15">
                         <div>
                           <i class="subtitle ri-mail-fill"></i>
                         </div>
-                        <div class="title">buero@falken-hagen.de</div>
+                        <div class="title">{{contact.email}}</div>
                       </div>
                       <div class="flex gap-1">
                         <div>
                           <i class="subtitle ri-phone-fill"></i>
                         </div>
-                        <div class="title">+49 233 133 6165</div>
+                        <div class="title">{{contact.phone}}</div>
                       </div>
                     </div>
+                    
+                    {% comment %} {% if forloop.counter < 4 %}
                     <div class="divider-ver"></div>
+                    {% endif %} {% endcomment %}
+                      
                   </div>
-                  <div class="contact-icon-list">
-                    <div class="contact-content">
-                      <p class="subtitle">Jugendcentrum Vorhalle</p>
-                      <div class="flex gap-1 mb-15">
-                        <div>
-                          <i class="subtitle ri-map-pin-line"></i>
-                        </div>
-                        <div class="title">Vorhaller Str. 34<br>58089 Hagen</div>
-                      </div>
-                      <div class="flex gap-1 mb-15">
-                        <div>
-                          <i class="subtitle ri-mail-fill"></i>
-                        </div>
-                        <div class="title">jz-vorhalle@falken-hagen.de</div>
-                      </div>
-                      <div class="flex gap-1">
-                        <div>
-                          <i class="subtitle ri-phone-fill"></i>
-                        </div>
-                        <div class="title">0157 39360 481</div>
-                      </div>
-                    </div>
-                    <div class="divider-ver"></div>
-                  </div>
-                  <div class="contact-icon-list">
-                    <div class="contact-content">
-                      <p class="subtitle">Friedenshause Altenhagen</p>
-                      <div class="flex gap-1 mb-15">
-                        <div>
-                          <i class="subtitle ri-map-pin-line"></i>
-                        </div>
-                        <div class="title">Friedensstraße 117<br>58097 Hagen</div>
-                      </div>
-                      <div class="flex gap-1 mb-15">
-                        <div>
-                          <i class="subtitle ri-mail-fill"></i>
-                        </div>
-                        <div class="title">m.karadag@falken-hagen.de</div>
-                      </div>
-                      <div class="flex gap-1">
-                        <div>
-                          <i class="subtitle ri-phone-fill"></i>
-                        </div>
-                        <div class="title">+49 173 104 8315</div>
-                      </div>
-                    </div>
-                    <div class="divider-ver"></div>
-                  </div>
-                  <div class="contact-icon-list">
-                    <div class="contact-content">
-                      <p class="subtitle">Spielhaus Brockhausen</p>
-                      <div class="flex gap-1 mb-15">
-                        <div>
-                          <i class="subtitle ri-map-pin-line"></i>
-                        </div>
-                        <div class="title">Freiherr vom Stein Straße 1<br>58089 Hagen</div>
-                      </div>
-                      <div class="flex gap-1 mb-15">
-                        <div>
-                          <i class="subtitle ri-mail-fill"></i>
-                        </div>
-                        <div class="title">k.meissner@falken-hagen.de</div>
-                      </div>
-                      <div class="flex gap-1">
-                        <div>
-                          <i class="subtitle ri-phone-fill"></i>
-                        </div>
-                        <div class="title">+49 233 133 3031</div>
-                      </div>
-                    </div>
-                  </div>
+                  {% endfor %}
+                    
                 </div>
               </div>
             </div>
@@ -129,34 +66,35 @@
             <div class="row gy-24">
               <div class="col-xl-6">
                 <div class="send-box">
-                  <form action="contact.html" class="custom-form">
+                  <form action="." class="custom-form" method="POST">
+                    {% csrf_token %}
                     <div class="row">
                       <div class="col-xl-12">
                         <div class="form-group">
-                          <label class="custom-label" for="exampleFormControlInput1">Name</label>
-                          <input type="text" class="form-control custom-input" id="exampleFormControlInput1" placeholder="John Doe">
+                          <label class="custom-label" for="exampleFormControlInput1">{% if language == 'en' %}Name{% else %}Name{% endif %}</label>
+                          <input name="name" type="text" class="form-control custom-input" id="exampleFormControlInput1" placeholder="John Doe">
                         </div>
                       </div>
                       <div class="col-xl-12">
                         <div class="form-group">
-                          <label class="custom-label" for="exampleFormControlInput5">Telefon</label>
-                          <input type="text" class="form-control custom-input" id="exampleFormControlInput5" placeholder="Telefon">
+                          <label class="custom-label" for="exampleFormControlInput5">{% if language == 'en' %}Phone{% else %}Telefon{% endif %}</label>
+                          <input name="phone" type="text" class="form-control custom-input" id="exampleFormControlInput5" placeholder="{% if language == 'en' %}Phone{% else %}Telefon{% endif %}">
                         </div>
                       </div>
                       <div class="col-xl-12">
                         <div class="form-group">
-                          <label class="custom-label" for="exampleFormControlInput2">E-Mail Adresse</label>
-                          <input type="email" class="form-control custom-input" id="exampleFormControlInput2" placeholder="name@example.com">
+                          <label class="custom-label" for="exampleFormControlInput2">{% if language == 'en' %}E-Mail Address{% else %}E-Mail Adresse{% endif %}</label>
+                          <input name="email" type="email" class="form-control custom-input" id="exampleFormControlInput2" placeholder="name@example.com">
                         </div>
                       </div>
                     </div>
                     <div class="col-xl-12">
                       <div class="form-group">
-                        <label class="custom-label" for="exampleFormControlTextarea1">Nachricht</label>
-                        <textarea class="form-control custom-textarea" id="exampleFormControlTextarea1" placeholder="Schreiben Sie ihre Nachricht hier"></textarea>
+                        <label class="custom-label" for="exampleFormControlTextarea1">{% if language == 'en' %}Message{% else %}Nachricht{% endif %}</label>
+                        <textarea name="message" class="form-control custom-textarea" id="exampleFormControlTextarea1" placeholder="{% if language == 'en' %}Write your message here{% else %}Schreiben Sie ihre nachricht hier{% endif %}"></textarea>
                       </div>
                     </div>
-                    <button type="submit" class="submit-btn">Nachricht Senden</button>
+                    <button type="submit" class="submit-btn">{% if language == 'en' %}Send Message{% else %}Nachricht Senden{% endif %}</button>
                   </form>
                 </div>
               </div>

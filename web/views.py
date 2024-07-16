@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.mail import send_mail
+from django.conf import settings
 import json
+
+from .forms import ContactForm
 
 from .models import (
     Home,
@@ -106,11 +110,31 @@ def event(request):
 
 def contact(request):
     lang = request.session.get("language", "en")
+    contacts = FooterContact.objects.all().order_by("-id")
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            phone = form.cleaned_data["phone"]
+            email = form.cleaned_data["email"]
+            message = form.cleaned_data["message"]
+            print(name, phone, email, message)
+            send_mail(
+                "Contact form message from fbf-hagen.de by {}".format(name),
+                message,
+                settings.EMAIL_HOST_USER,
+                ["selimozkan@gmail.com"],
+                auth_user=settings.EMAIL_HOST_USER,
+                auth_password=settings.EMAIL_HOST_PASSWORD,
+            )
+
     return render(
         request,
         "contact.html",
         {
             "language": lang,
+            "contacts": contacts,
         },
     )
 
